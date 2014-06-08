@@ -1,1 +1,6 @@
-*.swp
+*~
+*.log
+*.pyc
+.*.swp
+.DS_Store
+pyslack.egg-info
