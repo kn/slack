@@ -13,12 +13,12 @@ Install from source:
 ```
 $ git clone git://github.com/kn/slack.git
 $ cd slack
-python setup.py install
+$ python setup.py install
 ```
 
 ## Getting Started
 
-You need to get your Slack token from (api.slack.com)[https://api.slack.com/].
+You need to get your Slack token from [api.slack.com](https://api.slack.com/).
 
 ```
 > import slack
