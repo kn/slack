@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: pyslack
+Version: 0.0.0
+Summary: Slack API Client
+Home-page: https://github.com/kn/slack
+Author: Katsuya Noguchi
+Author-email: katsuya.noguchi@gmail.com
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
