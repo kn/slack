@@ -19,50 +19,22 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-class SlackError(Exception):
-    """
-    Generic exception raised when Slack API returns an error.
-    """
-    pass
+from mock import patch
+import unittest
 
-class InvalidAuthError(SlackError):
-    """
-    Raised when authentication token is invalid.
-    """
-    pass
+import slack
+import slack.channels
+import slack.http_client
 
-class NotAuthedError(SlackError):
-    """
-    Raised when authentication token is not given.
-    """
-    pass
 
-class AccountInactiveError(SlackError):
-    """
-    Raised when authentication token is for a deleted user.
-    """
-    pass
+slack.api_token = 'my_token'
 
-class ChannelNotFoundError(SlackError):
-    """
-    Raised when channel is not found.
-    """
-    pass
-
-class ChannelArchivedError(SlackError):
-    """
-    Raised when channel is archived.
-    """
-    pass
-
-class NotInChannelError(SlackError):
-    """
-    Raised when caller is not a member of the channel.
-    """
-    pass
-
-class RateLimitedError(SlackError):
-    """
-    Raised when application has posted too many messages.
-    """
-    pass
+class TestChannelsMark(unittest.TestCase):
+    @patch.object(slack.http_client, 'post')
+    def test_post_message(self, http_post_mock):
+        slack.channels.mark('C1234567890', '1234567890.123456')
+        http_post_mock.assert_called_with('channels.mark', {
+            'token': 'my_token',
+            'channel': 'C1234567890',
+            'ts': '1234567890.123456',
+        })

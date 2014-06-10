@@ -19,50 +19,42 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-class SlackError(Exception):
-    """
-    Generic exception raised when Slack API returns an error.
-    """
-    pass
+import slack
+import slack.http_client
 
-class InvalidAuthError(SlackError):
-    """
-    Raised when authentication token is invalid.
-    """
-    pass
 
-class NotAuthedError(SlackError):
+def info(file, **kwargs):
     """
-    Raised when authentication token is not given.
+    Returns information about a file in your team.
     """
-    pass
+    params = {
+        'token':  slack.api_token,
+        'file':   file,
+    }
 
-class AccountInactiveError(SlackError):
-    """
-    Raised when authentication token is for a deleted user.
-    """
-    pass
+    for key, value in kwargs.items():
+        params[key] = value
 
-class ChannelNotFoundError(SlackError):
-    """
-    Raised when channel is not found.
-    """
-    pass
+    return slack.http_client.get('files.info', params)
 
-class ChannelArchivedError(SlackError):
+def list(**kwargs):
     """
-    Raised when channel is archived.
+    Returns a list of files within the team.
     """
-    pass
+    params = { 'token':  slack.api_token }
 
-class NotInChannelError(SlackError):
-    """
-    Raised when caller is not a member of the channel.
-    """
-    pass
+    for key, value in kwargs.items():
+        params[key] = value
 
-class RateLimitedError(SlackError):
+    return slack.http_client.get('files.list', params)
+
+def upload(**kwargs):
     """
-    Raised when application has posted too many messages.
+    Creates or uploads an existing file.
     """
-    pass
+    data = { 'token':  slack.api_token }
+
+    for key, value in kwargs.items():
+        data[key] = value
+
+    return slack.http_client.post('files.upload', data)

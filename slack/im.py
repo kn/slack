@@ -19,50 +19,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-class SlackError(Exception):
-    """
-    Generic exception raised when Slack API returns an error.
-    """
-    pass
+import slack
+import slack.http_client
 
-class InvalidAuthError(SlackError):
-    """
-    Raised when authentication token is invalid.
-    """
-    pass
 
-class NotAuthedError(SlackError):
+def history(channel, **kwargs):
     """
-    Raised when authentication token is not given.
+    Returns a portion of messages/events from the
+    specified direct message channel.
     """
-    pass
+    params = {
+        'token':    slack.api_token,
+        'channel':  channel,
+    }
 
-class AccountInactiveError(SlackError):
-    """
-    Raised when authentication token is for a deleted user.
-    """
-    pass
+    for key, value in kwargs.items():
+        params[key] = value
 
-class ChannelNotFoundError(SlackError):
-    """
-    Raised when channel is not found.
-    """
-    pass
+    return slack.http_client.get('im.history', params)
 
-class ChannelArchivedError(SlackError):
+def list():
     """
-    Raised when channel is archived.
+    Returns a list of all im channels that the user has.
     """
-    pass
+    params = { 'token': slack.api_token }
 
-class NotInChannelError(SlackError):
-    """
-    Raised when caller is not a member of the channel.
-    """
-    pass
-
-class RateLimitedError(SlackError):
-    """
-    Raised when application has posted too many messages.
-    """
-    pass
+    return slack.http_client.get('im.list', params)

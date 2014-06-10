@@ -19,50 +19,43 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-class SlackError(Exception):
-    """
-    Generic exception raised when Slack API returns an error.
-    """
-    pass
+import slack
+import slack.http_client
 
-class InvalidAuthError(SlackError):
-    """
-    Raised when authentication token is invalid.
-    """
-    pass
 
-class NotAuthedError(SlackError):
+def history(channel, **kwargs):
     """
-    Raised when authentication token is not given.
+    Returns a portion of messages/events from a specified channel.
     """
-    pass
+    params = {
+        'token':    slack.api_token,
+        'channel':  channel,
+    }
 
-class AccountInactiveError(SlackError):
-    """
-    Raised when authentication token is for a deleted user.
-    """
-    pass
+    for key, value in kwargs.items():
+        params[key] = value
 
-class ChannelNotFoundError(SlackError):
-    """
-    Raised when channel is not found.
-    """
-    pass
+    return slack.http_client.get('channels.history', params)
 
-class ChannelArchivedError(SlackError):
+def mark(channel, ts):
     """
-    Raised when channel is archived.
+    Moves the read cursor in a channel.
     """
-    pass
+    data = {
+        'token':    slack.api_token,
+        'channel':  channel,
+        'ts':       ts,
+    }
 
-class NotInChannelError(SlackError):
-    """
-    Raised when caller is not a member of the channel.
-    """
-    pass
+    return slack.http_client.post('channels.mark', data)
 
-class RateLimitedError(SlackError):
+def list(**kwargs):
     """
-    Raised when application has posted too many messages.
+    Returns a list of all channels in the team.
     """
-    pass
+    params = { 'token': slack.api_token }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('channels.list', params)

@@ -23,15 +23,17 @@ import requests
 import slack
 from slack.exception import SlackError, \
                             InvalidAuthError, \
+                            NotAuthedError, \
                             AccountInactiveError, \
                             ChannelNotFoundError, \
                             ChannelArchivedError, \
+                            NotInChannelError, \
                             RateLimitedError
 
 
-def get(method, data):
+def get(method, params):
     url = _build_url(method)
-    response = requests.get(url, data=data, verify=False).json()
+    response = requests.get(url, params=params, verify=False).json()
     _raise_error_if_not_ok(response)
     return response
 
@@ -49,12 +51,16 @@ def _raise_error_if_not_ok(response):
         return
     if response['error'] == 'invalid_auth':
         raise InvalidAuthError()
+    if response['error'] == 'not_authed':
+        raise NotAuthedError()
     if response['error'] == 'account_inactive':
         raise AccountInactiveError()
     if response['error'] == 'channel_not_found':
         raise ChannelNotFoundError()
     if response['error'] == 'is_archived':
         raise ChannelArchivedError()
+    if response['error'] == 'not_in_channel':
+        raise NotInChannelError()
     if response['error'] == 'rate_limited':
         raise RateLimitedError()
     raise SlackError(response['error'])

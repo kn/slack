@@ -24,9 +24,11 @@ import unittest
 import slack.http_client
 from slack.exception import SlackError, \
                             InvalidAuthError, \
+                            NotAuthedError, \
                             AccountInactiveError, \
                             ChannelNotFoundError, \
                             ChannelArchivedError, \
+                            NotInChannelError, \
                             RateLimitedError
 
 
@@ -39,6 +41,11 @@ class TestRaiseErrorClient(unittest.TestCase):
         self.assertRaises(InvalidAuthError,
                           slack.http_client._raise_error_if_not_ok,
                           { 'ok': False, 'error': 'invalid_auth' })
+
+    def test_not_authed(self):
+        self.assertRaises(NotAuthedError,
+                          slack.http_client._raise_error_if_not_ok,
+                          { 'ok': False, 'error': 'not_authed' })
 
     def test_account_inactive(self):
         self.assertRaises(AccountInactiveError,
@@ -54,6 +61,11 @@ class TestRaiseErrorClient(unittest.TestCase):
         self.assertRaises(ChannelArchivedError,
                           slack.http_client._raise_error_if_not_ok,
                           { 'ok': False, 'error': 'is_archived' })
+
+    def test_not_in_channel(self):
+        self.assertRaises(NotInChannelError,
+                          slack.http_client._raise_error_if_not_ok,
+                          { 'ok': False, 'error': 'not_in_channel' })
 
     def test_rate_limited(self):
         self.assertRaises(RateLimitedError,

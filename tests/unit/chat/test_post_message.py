@@ -26,13 +26,14 @@ import slack
 import slack.chat
 import slack.http_client
 
+
 slack.api_token = 'my_token'
 
-class TestPostMessage(unittest.TestCase):
+class TestChatPostMessage(unittest.TestCase):
     @patch.object(slack.http_client, 'post')
-    def test_post_message(self, post_message_mock):
+    def test_post_message(self, http_post_mock):
         slack.chat.post_message('#python', 'slackers!')
-        post_message_mock.assert_called_with('chat.postMessage', {
+        http_post_mock.assert_called_with('chat.postMessage', {
             'token': 'my_token',
             'channel': '#python',
             'text': 'slackers!',

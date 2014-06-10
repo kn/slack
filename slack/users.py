@@ -19,50 +19,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-class SlackError(Exception):
-    """
-    Generic exception raised when Slack API returns an error.
-    """
-    pass
+import slack
+import slack.http_client
 
-class InvalidAuthError(SlackError):
-    """
-    Raised when authentication token is invalid.
-    """
-    pass
 
-class NotAuthedError(SlackError):
+def list():
     """
-    Raised when authentication token is not given.
+    Returns a list of all users in the team.
     """
-    pass
+    params = { 'token': slack.api_token }
 
-class AccountInactiveError(SlackError):
-    """
-    Raised when authentication token is for a deleted user.
-    """
-    pass
-
-class ChannelNotFoundError(SlackError):
-    """
-    Raised when channel is not found.
-    """
-    pass
-
-class ChannelArchivedError(SlackError):
-    """
-    Raised when channel is archived.
-    """
-    pass
-
-class NotInChannelError(SlackError):
-    """
-    Raised when caller is not a member of the channel.
-    """
-    pass
-
-class RateLimitedError(SlackError):
-    """
-    Raised when application has posted too many messages.
-    """
-    pass
+    return slack.http_client.get('users.list', params)

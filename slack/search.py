@@ -23,16 +23,44 @@ import slack
 import slack.http_client
 
 
-def messages(query, **kwargs):
+def all(query, **kwargs):
     """
-    Returns messages matching a search query.
+    Searches both messages and files.
     """
-    data = {
+    params = {
         'token':        slack.api_token,
         'query':        query,
     }
 
     for key, value in kwargs.items():
-        data[key] = value
+        params[key] = value
 
-    return slack.http_client.get('search.messages', data)
+    return slack.http_client.get('search.all', params)
+
+def messages(query, **kwargs):
+    """
+    Returns messages matching a search query.
+    """
+    params = {
+        'token':        slack.api_token,
+        'query':        query,
+    }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('search.messages', params)
+
+def files(query, **kwargs):
+    """
+    Returns files matching a search query.
+    """
+    params = {
+        'token':        slack.api_token,
+        'query':        query,
+    }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('search.files', params)
