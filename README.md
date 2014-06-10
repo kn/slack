@@ -26,3 +26,7 @@ You need to get your Slack token from [api.slack.com](https://api.slack.com/).
 > slack.api_token = 'your_token'
 > slack.post_message('#eng', 'Hello slackers!')
 ```
+
+## Available Methods
+
+All methods in [a preview release of Slack API](https://api.slack.com/) are available.
