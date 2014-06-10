@@ -24,7 +24,10 @@ You need to get your Slack token from [api.slack.com](https://api.slack.com/).
 > import slack
 > import slack.chat
 > slack.api_token = 'your_token'
-> slack.post_message('#eng', 'Hello slackers!')
+> slack.chat.post_message('#eng', 'Hello slackers!', username='mybot')
+
+> import slack.users
+> slack.users.list()
 ```
 
 ## Available Methods
