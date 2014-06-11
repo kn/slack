@@ -2,6 +2,8 @@
 
 slack is a Python package that provides interface to [Slack](https://slack.com/).
 
+[![Build Status](https://travis-ci.org/kn/slack.svg?branch=master)](https://travis-ci.org/kn/slack)
+
 ## Installation
 
 Install via [pip](https://pip.pypa.io/en/latest/)
