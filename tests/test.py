@@ -41,7 +41,7 @@ def main():
     if not attribute_args:
         attribute_args = ['-a', '!notdefault']
     all_args = [__file__] + attribute_args + remaining_args
-    print "nose command:", ' '.join(all_args)
+    print "nose command: {0}".format(' '.join(all_args))
     if run(argv=all_args):
         return 0
     else:
