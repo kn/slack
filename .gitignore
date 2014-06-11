@@ -4,4 +4,5 @@
 .*.swp
 .DS_Store
 dist
+ve
 pyslack.egg-info
