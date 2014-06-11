@@ -1,8 +1,8 @@
-language: Python
+language: python
 python:
   - "2.5"
   - "2.7"
   - "3.2"
   - "3.3"
 install: "pip install -r requirements.txt"
-script: nosetests
+script: python tests/test.py unit
