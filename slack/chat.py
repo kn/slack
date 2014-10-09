@@ -19,8 +19,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
+import json
+
 import slack
 import slack.http_client
+
+from collections import defaultdict
+
+
+FIELD_ENCODERS = defaultdict(lambda value: value)
+FIELD_ENCODERS['attachments'] = json.dumps
 
 
 def post_message(channel, text, **kwargs):
@@ -34,6 +42,6 @@ def post_message(channel, text, **kwargs):
     }
 
     for key, value in kwargs.items():
-        data[key] = value
+        data[key] = FIELD_ENCODERS.get(key)(value)
 
     return slack.http_client.post('chat.postMessage', data)
