@@ -24,11 +24,13 @@ import json
 import slack
 import slack.http_client
 
-from collections import defaultdict
+
+def default_encoder(value): return value
 
 
-FIELD_ENCODERS = defaultdict(lambda value: value)
-FIELD_ENCODERS['attachments'] = json.dumps
+FIELD_ENCODERS = {
+    'attachments': json.dumps
+}
 
 
 def post_message(channel, text, **kwargs):
@@ -42,6 +44,6 @@ def post_message(channel, text, **kwargs):
     }
 
     for key, value in kwargs.items():
-        data[key] = FIELD_ENCODERS.get(key)(value)
+        data[key] = FIELD_ENCODERS.get(key, default_encoder)(value)
 
     return slack.http_client.post('chat.postMessage', data)
