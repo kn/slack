@@ -1,6 +1,6 @@
 # slack
 
-slack is a Python package that provides interface to [Slack](https://slack.com/).
+slack is a Python package that provides interface to Slack listed officialy on [slack.com](https://api.slack.com/community).
 
 [![Build Status](https://travis-ci.org/kn/slack.svg?branch=master)](https://travis-ci.org/kn/slack)
 
