@@ -20,6 +20,7 @@
 # IN THE SOFTWARE.
 
 from mock import patch
+import json
 import unittest
 
 import slack
@@ -29,6 +30,7 @@ import slack.http_client
 
 slack.api_token = 'my_token'
 
+
 class TestChatPostMessage(unittest.TestCase):
     @patch.object(slack.http_client, 'post')
     def test_post_message(self, http_post_mock):
@@ -37,4 +39,23 @@ class TestChatPostMessage(unittest.TestCase):
             'token': 'my_token',
             'channel': '#python',
             'text': 'slackers!',
+        })
+
+    @patch.object(slack.http_client, 'post')
+    def test_post_message_with_attachments(self, http_post_mock):
+        attachment = {
+            'fallback': 'slackers!',
+            'text': 'slackers!',
+            'fields': [{
+                'from': 'me',
+                'to': 'you',
+            }],
+        }
+        slack.chat.post_message(
+            '#python', 'slackers!', attachments=[attachment])
+        http_post_mock.assert_called_with('chat.postMessage', {
+            'token': 'my_token',
+            'channel': '#python',
+            'text': 'slackers!',
+            'attachments': json.dumps([attachment]),
         })
