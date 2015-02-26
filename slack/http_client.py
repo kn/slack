@@ -33,13 +33,13 @@ from slack.exception import SlackError, \
 
 def get(method, params):
     url = _build_url(method)
-    response = requests.get(url, params=params, verify=False).json()
+    response = requests.get(url, params=params, verify=True).json()
     _raise_error_if_not_ok(response)
     return response
 
 def post(method, data):
     url = _build_url(method)
-    response = requests.post(url, data=data, verify=False).json()
+    response = requests.post(url, data=data, verify=True).json()
     _raise_error_if_not_ok(response)
     return response
 
