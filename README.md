@@ -1,6 +1,6 @@
 # slack
 
-slack is a Python package that provides interface to Slack listed officialy on [slack.com](https://api.slack.com/community).
+slack is a Python package that provides an interface to Slack listed officially on [slack.com](https://api.slack.com/community).
 
 [![Build Status](https://travis-ci.org/kn/slack.svg?branch=master)](https://travis-ci.org/kn/slack)
 
@@ -22,14 +22,14 @@ $ python setup.py install
 
 You need to get your Slack token from [api.slack.com](https://api.slack.com/).
 
-```
-> import slack
-> import slack.chat
-> slack.api_token = 'your_token'
-> slack.chat.post_message('#eng', 'Hello slackers!', username='mybot')
+```python
+import slack
+import slack.chat
+slack.api_token = 'your_token'
+slack.chat.post_message('#eng', 'Hello slackers!', username='mybot')
 
-> import slack.users
-> slack.users.list()
+import slack.users
+slack.users.list()
 ```
 
 ## Available Methods
