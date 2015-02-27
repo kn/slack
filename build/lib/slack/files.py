@@ -19,11 +19,42 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+import slack
+import slack.http_client
 
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+def info(file, **kwargs):
+    """
+    Returns information about a file in your team.
+    """
+    params = {
+        'token':  slack.api_token,
+        'file':   file,
+    }
 
-log = logging.getLogger('slack')
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('files.info', params)
+
+def list(**kwargs):
+    """
+    Returns a list of files within the team.
+    """
+    params = { 'token':  slack.api_token }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('files.list', params)
+
+def upload(**kwargs):
+    """
+    Creates or uploads an existing file.
+    """
+    data = { 'token':  slack.api_token }
+
+    for key, value in kwargs.items():
+        data[key] = value
+
+    return slack.http_client.post('files.upload', data)

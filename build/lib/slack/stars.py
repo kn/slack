@@ -19,11 +19,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+import slack
+import slack.http_client
 
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+def list(**kwargs):
+    """
+    Lists the items starred by a user.
+    """
+    params = { 'token': slack.api_token }
 
-log = logging.getLogger('slack')
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('stars.list', params)

@@ -19,11 +19,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+import slack
+import slack.http_client
 
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+def history(channel, **kwargs):
+    """
+    Returns a portion of messages/events from the
+    specified direct message channel.
+    """
+    params = {
+        'token':    slack.api_token,
+        'channel':  channel,
+    }
 
-log = logging.getLogger('slack')
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('im.history', params)
+
+def list():
+    """
+    Returns a list of all im channels that the user has.
+    """
+    params = { 'token': slack.api_token }
+
+    return slack.http_client.get('im.list', params)

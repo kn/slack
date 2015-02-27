@@ -19,11 +19,48 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+import slack
+import slack.http_client
 
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+def all(query, **kwargs):
+    """
+    Searches both messages and files.
+    """
+    params = {
+        'token':        slack.api_token,
+        'query':        query,
+    }
 
-log = logging.getLogger('slack')
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('search.all', params)
+
+def messages(query, **kwargs):
+    """
+    Returns messages matching a search query.
+    """
+    params = {
+        'token':        slack.api_token,
+        'query':        query,
+    }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('search.messages', params)
+
+def files(query, **kwargs):
+    """
+    Returns files matching a search query.
+    """
+    params = {
+        'token':        slack.api_token,
+        'query':        query,
+    }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('search.files', params)

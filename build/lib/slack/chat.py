@@ -19,11 +19,31 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+import json
+
+import slack
+import slack.http_client
 
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+def default_encoder(value): return value
 
-log = logging.getLogger('slack')
+
+FIELD_ENCODERS = {
+    'attachments': json.dumps
+}
+
+
+def post_message(channel, text, **kwargs):
+    """
+    Sends a message to a channel.
+    """
+    data = {
+        'token':        slack.api_token,
+        'channel':      channel,
+        'text':         text,
+    }
+
+    for key, value in kwargs.items():
+        data[key] = FIELD_ENCODERS.get(key, default_encoder)(value)
+
+    return slack.http_client.post('chat.postMessage', data)

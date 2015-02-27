@@ -19,11 +19,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+import slack
+import slack.http_client
 
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+def list():
+    """
+    Returns a list of all users in the team.
+    """
+    params = { 'token': slack.api_token }
 
-log = logging.getLogger('slack')
+    return slack.http_client.get('users.list', params)

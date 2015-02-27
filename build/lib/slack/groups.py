@@ -19,11 +19,33 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+import slack
+import slack.http_client
 
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+def history(channel, **kwargs):
+    """
+    Returns a portion of messages/events from the
+    specified private group.
+    """
+    params = {
+        'token':    slack.api_token,
+        'channel':  channel,
+    }
 
-log = logging.getLogger('slack')
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('groups.history', params)
+
+def list(**kwargs):
+    """
+    Returns a list of groups in the team that the caller is in and
+    archived groups that the caller was in.
+    """
+    params = { 'token': slack.api_token }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('groups.list', params)

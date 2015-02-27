@@ -19,11 +19,50 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-import logging
+class SlackError(Exception):
+    """
+    Generic exception raised when Slack API returns an error.
+    """
+    pass
 
+class InvalidAuthError(SlackError):
+    """
+    Raised when authentication token is invalid.
+    """
+    pass
 
-__version__ = '0.1.2'
-api_base_url = 'https://slack.com/api'
-api_token = None
+class NotAuthedError(SlackError):
+    """
+    Raised when authentication token is not given.
+    """
+    pass
 
-log = logging.getLogger('slack')
+class AccountInactiveError(SlackError):
+    """
+    Raised when authentication token is for a deleted user.
+    """
+    pass
+
+class ChannelNotFoundError(SlackError):
+    """
+    Raised when channel is not found.
+    """
+    pass
+
+class ChannelArchivedError(SlackError):
+    """
+    Raised when channel is archived.
+    """
+    pass
+
+class NotInChannelError(SlackError):
+    """
+    Raised when caller is not a member of the channel.
+    """
+    pass
+
+class RateLimitedError(SlackError):
+    """
+    Raised when application has posted too many messages.
+    """
+    pass
