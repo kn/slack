@@ -3,6 +3,7 @@
 *.pyc
 .*.swp
 .DS_Store
+build
 dist
 ve
 pyslack.egg-info
