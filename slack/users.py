@@ -22,6 +22,17 @@
 import slack
 import slack.http_client
 
+def getPresence(user):
+    """
+    This method lets you find out information about a user's presence.
+    """
+    params = { 
+        'token': slack.api_token,
+        'user': user,
+    }
+
+    return slack.http_client.get('users.getPresence', params)
+
 
 def list():
     """
