@@ -31,7 +31,7 @@ slack.api_token = 'my_token'
 
 class TestGetPresence(unittest.TestCase):
     @patch.object(slack.http_client, 'get')
-    def test_list(self, http_get_mock):
+    def test_get_presence(self, http_get_mock):
         slack.users.getPresence('my_user')
         http_get_mock.assert_called_with('users.getPresence', {
             'token': 'my_token',
