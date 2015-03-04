@@ -24,14 +24,25 @@ import slack.http_client
 
 def getPresence(user):
     """
-    This method lets you find out information about a user's presence.
+    Returns information about a user's presence.
     """
-    params = { 
+    params = {
         'token': slack.api_token,
         'user': user,
     }
 
     return slack.http_client.get('users.getPresence', params)
+
+def info(user):
+    """
+    Returns information about a team member.
+    """
+    params = {
+        'token': slack.api_token,
+        'user': user,
+    }
+
+    return slack.http_client.get('users.info', params)
 
 
 def list():
@@ -41,3 +52,25 @@ def list():
     params = { 'token': slack.api_token }
 
     return slack.http_client.get('users.list', params)
+
+def setActive():
+    """
+    Sets the currently authenticated user as currently active
+    """
+    params = { 'token': slack.api_token }
+
+    return slack.http_client.get('users.setActive', params)
+
+def setPresence(presence):
+    """
+    Sets the calling user's presence manually
+    """
+    if presence not in ['auto', 'away']:
+        raise ValueError("Expected 'auto' or 'away'")
+
+    params = {
+        'token': slack.api_token,
+        'presence': presence,
+    }
+
+    return slack.http_client.get('users.setPresence', params)
