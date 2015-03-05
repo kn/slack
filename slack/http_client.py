@@ -33,17 +33,19 @@ from slack.exception import SlackError, \
 
 def get(method, params):
     url = _build_url(method)
-    return _parse_response(requests.get(url, params=params, verify=True))
+    response = requests.get(url, params=params, verify=True)
+    return _parse_response(response)
 
 def post(method, data):
     url = _build_url(method)
-    return _parse_response(requests.post(url, data=data, verify=True))
+    response = requests.post(url, data=data, verify=True)
+    return _parse_response(response)
 
 def _parse_response(response):
     try:
         response = response.json()
     except ValueError as e:
-        _raise_error_if_not_ok({'ok': False, 'error': e})
+        response = {'ok': False, 'error': e}
     _raise_error_if_not_ok(response)
     return response
 
