@@ -22,7 +22,7 @@
 import logging
 
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 api_base_url = 'https://slack.com/api'
 api_token = None
 
