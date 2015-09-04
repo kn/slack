@@ -20,6 +20,7 @@
 # IN THE SOFTWARE.
 
 import slack
+import slack.users
 import slack.http_client
 
 
@@ -48,6 +49,40 @@ def mark(channel, ts):
     }
 
     return slack.http_client.post('channels.mark', data)
+
+def create(name):
+    """
+    Creates a new channel.
+    """
+    data = {
+        'token': slack.api_token,
+        'name': name,
+    }
+    return slack.http_client.post('channels.create', data)
+
+def invite(channel, user):
+    """
+    Invites a user to a channel.
+    """
+    channel_id = None
+    user_id = None
+    for chan in list()['channels']:
+        if chan['name'] == channel:
+            channel_id == chan['id']
+
+    for usr in slack.users.list()['members']:
+        if usr['name'] == user:
+            user_id == usr['id']
+
+    if channel_id and user_id:
+        data = {
+           'token': slack.api_token,
+            'channel': channel,
+            'user': user,
+        }
+        return slack.http_client.post('channels.invite', data)
+    else:
+        return None
 
 def list(**kwargs):
     """
