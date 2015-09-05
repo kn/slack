@@ -69,9 +69,7 @@ def invite(channel, user):
         'channel': channel,
         'user': user,
     }
-        return slack.http_client.post('channels.invite', params)
-    else:
-        return None
+    return slack.http_client.post('channels.invite', params)
 
 def list(**kwargs):
     """
