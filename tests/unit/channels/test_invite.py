@@ -26,10 +26,10 @@ import slack
 import slack.channels
 import slack.http_client
 
-
 slack.api_token = 'my_token'
 
-class TestChannelsIncite(unittest.TestCase):
+
+class TestChannelsInvite(unittest.TestCase):
     @patch.object(slack.http_client, 'get')
     def test_invite(self, http_get_mock):
         slack.channels.invite('C123456', 'U123456')
@@ -38,4 +38,3 @@ class TestChannelsIncite(unittest.TestCase):
             'channel': 'C123456',
             'user': 'U123456',
         })
-

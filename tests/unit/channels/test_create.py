@@ -26,8 +26,8 @@ import slack
 import slack.channels
 import slack.http_client
 
-
 slack.api_token = 'my_token'
+
 
 class TestChannelsCreate(unittest.TestCase):
     @patch.object(slack.http_client, 'get')
@@ -37,4 +37,3 @@ class TestChannelsCreate(unittest.TestCase):
             'token': 'my_token',
             'name': 'test-channel',
         })
-
