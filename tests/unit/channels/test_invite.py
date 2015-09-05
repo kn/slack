@@ -33,7 +33,7 @@ class TestChannelsInvite(unittest.TestCase):
     @patch.object(slack.http_client, 'post')
     def test_invite(self, http_post_mock):
         slack.channels.invite('C123456', 'U123456')
-        http_post_mock.assert_called_with('channels.create', {
+        http_post_mock.assert_called_with('channels.invite', {
             'token': 'my_token',
             'channel': 'C123456',
             'user': 'U123456',
