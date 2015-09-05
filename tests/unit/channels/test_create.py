@@ -31,9 +31,9 @@ slack.api_token = 'my_token'
 
 class TestChannelsCreate(unittest.TestCase):
     @patch.object(slack.http_client, 'post')
-    def test_create(self, http_get_mock):
+    def test_create(self, http_post_mock):
         slack.channels.create('test-channel')
-        http_get_mock.assert_called_with('channels.create', {
+        http_post_mock.assert_called_with('channels.create', {
             'token': 'my_token',
             'name': 'test-channel',
         })
