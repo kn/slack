@@ -38,6 +38,21 @@ def history(channel, **kwargs):
 
     return slack.http_client.get('channels.history', params)
 
+def info(channel, **kwargs):
+    """
+    Returns info about a channel. eg channel topic
+    """
+    params = {
+        'token':    slack.api_token,
+        'channel':  channel,
+    }
+
+    for key, value in kwargs.items():
+        params[key] = value
+
+    return slack.http_client.get('channels.info', params)
+
+
 def mark(channel, ts):
     """
     Moves the read cursor in a channel.
