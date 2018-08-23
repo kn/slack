@@ -33,7 +33,7 @@ class TestChannelsInfo(unittest.TestCase):
     @patch.object(slack.http_client, 'get')
     def test_list(self, http_get_mock):
         slack.channels.info('C1234567890')
-        http_get_mock.assert_called_with('channels.history', {
+        http_get_mock.assert_called_with('channels.info', {
             'token': 'my_token',
             'channel': 'C1234567890',
         })
