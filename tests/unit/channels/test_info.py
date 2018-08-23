@@ -29,7 +29,7 @@ import slack.http_client
 
 slack.api_token = 'my_token'
 
-class TestChannelsHistory(unittest.TestCase):
+class TestChannelsInfo(unittest.TestCase):
     @patch.object(slack.http_client, 'get')
     def test_list(self, http_get_mock):
         slack.channels.info('C1234567890')
