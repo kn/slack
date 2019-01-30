@@ -47,3 +47,21 @@ def post_message(channel, text, **kwargs):
         data[key] = FIELD_ENCODERS.get(key, default_encoder)(value)
 
     return slack.http_client.post('chat.postMessage', data)
+
+
+def update(channel, timestamp, text, **kwargs):
+    """
+    Updates a message to a channel.
+    """
+
+    data = {
+        'token':        slack.api_token,
+        'channel':      channel,
+        'ts':           timestamp,
+        'text':         text
+    }
+
+    for key, value in kwargs.items():
+        data[key] = FIELD_ENCODERS.get(key, default_encoder)(value)
+
+    return slack.http_client.post('chat.update', data)
