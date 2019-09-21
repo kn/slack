@@ -29,7 +29,8 @@ def default_encoder(value): return value
 
 
 FIELD_ENCODERS = {
-    'attachments': json.dumps
+    'attachments': json.dumps,
+    'blocks': json.dumps,
 }
 
 
